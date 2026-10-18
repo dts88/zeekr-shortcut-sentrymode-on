@@ -96,6 +96,9 @@ Home, 1.3521, 103.8198, 600; Office, 1.2840, 103.8510, 600
 - **The radius** can be left out; it is then 600 metres. In underground car parks the car's reported position often
   drifts by a few hundred metres, and a radius that is too small makes "at home" look like "away". If there is a place
   nearby where you do want sentry mode (a shopping mall car park, say), make the radius smaller.
+- **The exact spot:** where the car reports itself can differ from the map, in underground car parks especially. Once
+  the program runs, you can use the position the car itself reports: see
+  [Find the car's exact position](#find-the-cars-exact-position).
 - Commas and semicolons typed with a Chinese or Japanese keyboard (`，` `；`) are fine too.
 - At least one place is required. If you really want none, write `none`.
 
@@ -261,6 +264,22 @@ Cloudflare dashboard → **Compute** → **Workers & Pages** → `zeekr-shortcut
    put the change into use.)
 
    ![Rotate, type the new value, Deploy](docs/images/secret-rotate.jpg)
+
+### Find the car's exact position
+
+To set a place exactly where your car reports it is parked:
+
+1. Park there, in P, and wait for one check (up to 5 minutes).
+2. Cloudflare dashboard → **Storage & databases** → **Workers KV** → click `zeekr-shortcut-sentrymode-on-state`
+   (`zeekr-sentry-state` if you set it up by pasting the file), then open **KV Pairs**.
+3. Find the key that starts with `parking:` (one per car). Its **Value** looks like
+   `{"position":{"lat":1.35318,"lon":103.8198},"attempts":0,"seenOn":false}`: `lat` and `lon` are where the car
+   reported itself when this parking began.
+4. Put them in `GEOFENCES`, for example `Home, 1.35318, 103.8198, 600` (see
+   [Change your places or password](#change-your-places-or-password)).
+
+The `parking:` key is there only while the car is parked; it goes when the car drives off. Leave the entries as they
+are: `session` is the program's sign-in.
 
 ### Pause and resume
 
