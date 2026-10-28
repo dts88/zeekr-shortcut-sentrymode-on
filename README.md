@@ -281,6 +281,9 @@ To set a place exactly where your car reports it is parked:
 The `parking:` key is there only while the car is parked; it goes when the car drives off. Leave the entries as they
 are: `session` is the program's sign-in.
 
+Thanks to R. Manochvarma, who found this method. A place set from the position the car itself reports is the most
+exact one you can get.
+
 ### Pause and resume
 
 On the Worker's **Settings** page, under **Trigger events**:
